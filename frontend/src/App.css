@@ -17,8 +17,20 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* Estilos personalizados para el carrusel */
+/* Estilos para el carrusel */
 
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgb(218, 89, 4) !important; 
+}
+
+.swiper-pagination-bullet {
+  background-color: rgb(218, 89, 4) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: rgb(226, 117, 15) !important; 
+}
 
 
 @keyframes logo-spin {
