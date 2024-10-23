@@ -83,3 +83,22 @@
     }
     ```
     
+    5. **Categories**
+    
+    ```json
+    {
+      "_id": ObjectId,
+      "name": String,
+      "description": String,
+      "image": String
+    }
+    ```
+6. **NewsCarousel**
+   ```json
+    {
+        "_id": ObjectId,
+        "image": String,
+        "url": String,
+    }
+   
+   ```
