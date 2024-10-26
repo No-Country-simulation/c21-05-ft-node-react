@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   user_type: {
     type: String,
     enum: ['buyer', 'seller', 'administrator'],
-    required: true
+    default: 'buyer'
   },
   image_url: String,
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],

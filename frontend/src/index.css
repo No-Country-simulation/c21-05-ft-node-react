@@ -48,3 +48,20 @@
   font-weight: 700;
   font-style: normal;
 }
+
+/* ::: ANIMATIONS ::: */
+
+@keyframes load {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 200%;
+  }
+}
+
+.animate-load {
+  background: linear-gradient(90deg, transparent 50%, hsla(0, 0%, 100%, 0.5) 100%);
+  animation: load 2s linear infinite;
+}
