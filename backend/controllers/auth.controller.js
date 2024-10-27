@@ -25,7 +25,8 @@ async function signin(req, res) {
 
     const token = generateToken(user);
     res.cookie('t', token, { expire: new Date() + 9999 });
-    return res.json({ token, user: { _id: user._id, email: user.email, name: user.name } });
+
+    return res.json({ token, user: { _id: user._id, email: user.email, name: user.name, user_type: user.user_type, shop_id: user.shop_id } });
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error' });
   }
@@ -47,7 +48,7 @@ const requireSignin = expressjwt({
 // Middleware de autorización
 function hasAuthorization(req, res, next) {
   // Verifica que el usuario autenticado es el mismo que el perfil cargado
-  
+
   const authorized = req.profile?._id == req.auth?._id;
   if (!authorized) {
     return res.status(403).json({ error: 'User is not authorized.' });

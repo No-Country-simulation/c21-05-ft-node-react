@@ -34,10 +34,15 @@ const UserSchema = new mongoose.Schema({
   views: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   cart: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+      product_id: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
       quantity: { type: Number, required: true }
     }
   ],
+  shop_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Shop",
+    default: null 
+  }
 })
 
 UserSchema
