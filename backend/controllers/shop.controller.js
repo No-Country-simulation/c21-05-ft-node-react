@@ -9,22 +9,32 @@ const create = async (req, res) => {
     const existingShop = await Shop.findOne({ name: req.body.name });
     if (existingShop) {
       return res.status(400).json({
-        error: 'Shop name already exists'
+        error: 'El nombre de la tienda ya existe.'
+      });
+    }
+    // Verificar si el usuario ya tiene una tienda
+    const userShop = await Shop.findOne({ seller_id: req.auth._id });
+    if (userShop) {
+      return res.status(400).json({
+        error: 'El usuario ya tiene una tienda.'
       });
     }
 
     let shop = new Shop(req.body)
     shop.seller_id = req.auth._id
-    let result = await shop.save()
+    let newShop = await shop.save()
 
     // Actualizar el user_type del usuario
     let user = await User.findById(req.auth._id);
     if (user.user_type !== 'seller') {
-      user.user_type = 'seller';
+      user.user_type = 'seller'
       await user.save();
     }
 
-    res.status(200).json(result)
+    // Agregar el shop_id al usuario
+    user.shop_id = newShop._id
+
+    res.status(200).json(newShop)
 
   } catch (err) {
     return res.status(400).json({
@@ -38,13 +48,13 @@ const shopByID = async (req, res, next, id) => {
     let shop = await Shop.findById(id).exec()
     if (!shop)
       return res.status(400).json({
-        error: "Shop not found"
+        error: "Tienda no encontrada."
       })
     req.shop = shop
     next()
   } catch (err) {
     return res.status(400).json({
-      error: "Could not retrieve shop"
+      error: "Error al buscar la tienda."
     })
   }
 }
@@ -60,8 +70,8 @@ const update = async (req, res) => {
   shop.updated = Date.now()
 
   try {
-    let result = await shop.save()
-    res.json(result)
+    let updatedShop = await shop.save()
+    res.json(updatedShop)
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err)
@@ -76,17 +86,17 @@ const remove = async (req, res) => {
 
     if (!deletedShop) {
       return res.status(400).json({
-        error: "Shop not found",
+        error: "Tienda no encontrada.",
       });
     }
 
     res.json({
-      message: "Shop deleted successfully",
+      message: "Tienda eliminada con éxito.",
       deletedShop,
     });
   } catch (err) {
     return res.status(400).json({
-      error: "Could not delete shop. " + errorHandler.getErrorMessage(err),
+      error: "No pudo eliminar la tienda. " + errorHandler.getErrorMessage(err),
     });
   }
 }
@@ -118,7 +128,7 @@ const isSeller = (req, res, next) => {
 
   if (!isSeller) {
     return res.status(403).json({
-      error: "User is not authorized. It's not a seller."
+      error: "El usuario no está autorizado. No es un vendedor."
     })
   }
   next()
