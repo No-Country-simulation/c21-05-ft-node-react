@@ -10,6 +10,7 @@ import Home from "./pages/home"
 import SignUp from "./pages/signup"
 import Login from "./pages/login"
 import CreateShop from "./pages/create-shop"
+import Category from "./pages/category"
 
 import AuthContext, { AuthProvider } from "./context/auth-context"
 import { useContext } from "react"
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/signup" element={<SignUp />}></Route>
             <Route exact path="/login" element={<Login />}></Route>
+            <Route exact path="/category/:id" element={<Category />}></Route>
             <Route path="/create-shop" element={<PrivateRoute><CreateShop /></PrivateRoute>} />
           </Routes>
         </Router>

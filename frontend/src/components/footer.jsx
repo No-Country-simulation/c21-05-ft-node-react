@@ -8,7 +8,7 @@ export default function CustomFooter() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <img src={logo} alt="Logo" className="w-48" />
+            <img src={logo} alt="Logo" className="w-28 filter grayscale contrast-50" />
           </div>
           <div className="flex space-x-6">
             <a href="#" className=" hover:text-yellow-600">
