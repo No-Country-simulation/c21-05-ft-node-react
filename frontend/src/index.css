@@ -7,6 +7,9 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --clr-brand: hsl(48, 100%, 42%);
+  --clr-brand-light: hsl(48, 100%, 60%);
+  --clr-brand-dark: hsl(48, 100%, 30%);
   color-scheme: light dark;
   color: #222;
   background-color: #eee;
@@ -16,8 +19,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-
 
 #root {
   padding: 0;
@@ -49,19 +50,3 @@
   font-style: normal;
 }
 
-/* ::: ANIMATIONS ::: */
-
-@keyframes load {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 200%;
-  }
-}
-
-.animate-load {
-  background: linear-gradient(90deg, transparent 50%, hsla(0, 0%, 100%, 0.5) 100%);
-  animation: load 2s linear infinite;
-}
