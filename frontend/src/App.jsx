@@ -30,7 +30,7 @@ function App() {
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/signup" element={<SignUp />}></Route>
             <Route exact path="/login" element={<Login />}></Route>
-            <Route exact path="/category/:id" element={<Category />}></Route>
+            <Route exact path="/products" element={<Category />}></Route>
             <Route path="/create-shop" element={<PrivateRoute><CreateShop /></PrivateRoute>} />
           </Routes>
         </Router>

@@ -1,15 +1,17 @@
 import Layout from "../components/layout"
-import { useParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom';
+import ProductList from "../components/product-list";
 
 const Category = () => {
-  const { id } = useParams()
-  //Traer los productos consultando a la API con éste ID
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryId = searchParams.get('categoryId');
+  const categoryName = searchParams.get('categoryName');
 
   return (
     <Layout>
       <main className="p-10 min-h-screen">
-        <h1>{id}</h1>
-        Acá va ProductList y recibe productos
+      <h1 className="font-semibold text-xl">Productos de {categoryName}</h1>
+        <ProductList id={categoryId}/>
       </main>
     </Layout>
   );
