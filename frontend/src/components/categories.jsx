@@ -24,7 +24,7 @@ const Categories = () => {
 
   const cards = categories.map((category) => {
     return (
-      <Link to={`/category/${category._id}`} key={category._id}>
+      <Link to={`/products?categoryId=${category._id}&categoryName=${category.name}`} key={category._id}>
         <div
           className={
             `relative p-5 m-5 h-48 bg-cover bg-center text-left  rounded-xl min-w-26 uppercase shadow-2xl 
