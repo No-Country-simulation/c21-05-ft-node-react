@@ -35,7 +35,7 @@ const NewsCarousel = () => {
       navigation
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
-      loop={true}
+      loop={!isLoading}
       autoplay={{
         delay: 5000,
         disableOnInteraction: false,
