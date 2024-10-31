@@ -1,29 +1,20 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import api from '../api/axiosConfig';
 import { Link } from "react-router-dom";
 
-const ProductList = (categoryId) => {
+const ProductList = ({products, isLoading}) => {
 
-    const [products, setProducts] =  useState ([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const [prodArray, setProdArray] =  useState([]);
 
-    const getProducts = async () => {
-        try {
-            const response = await api.get(`/products?categoryId=${categoryId.id}`)
-            setProducts(response.data)
-          } catch (error) {
-            console.error('Error fetching products:', error)
-          } finally {
-            setIsLoading(false);
-          }
-    }
+  const getProducts = () => {
+    setProdArray(products)
+  }
 
-    useEffect(() => {
-        getProducts()
-    }, [])
+  useEffect(() => {
+    getProducts()
+  }, [products])
 
-    const cards = products.map((product)  => {
+    const cards = prodArray.map((product)  => {
         return(
           <Link to={`/products/${product._id}`} key={product._id}>
               <div
