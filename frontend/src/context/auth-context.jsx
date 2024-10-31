@@ -1,9 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useContext } from 'react'
 import api from '../api/axiosConfig'
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
+
   const [auth, setAuth] = useState({
     token: localStorage.getItem('token') || null,
     user: JSON.parse(localStorage.getItem('user')) || null
@@ -20,6 +21,7 @@ export const AuthProvider = ({ children }) => {
   }, [auth])
 
   const setUserType = async (usertype) => {
+    console.log(userType)
     try {
       if (userType === 'administrator' || userType === 'seller' || userType === 'buyer') {
         setAuth((prevAuth) => ({
@@ -31,6 +33,7 @@ export const AuthProvider = ({ children }) => {
         }))
         // Update localStorage
         const updatedUser = { ...auth.user, user_type: userType }
+        console.log(updatedUser)
         localStorage.setItem('user', JSON.stringify(updatedUser))
       } else {
         throw new Error(`${userType} no es un tipo de usuario válido.`)
@@ -54,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         const updatedUser = { ...auth.user, shop_id: shopId }
         localStorage.setItem('user', JSON.stringify(updatedUser))
       } else {
-        throw new Error(`ShopId: ${shopId} no es un un Id válido.`)
+        throw new Error(`ShopId: ${shopId} no es un Id válido.`)
       }
     } catch (error) {
       console.error(error)
@@ -77,7 +80,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout, setUserType, setShopId }}>
+    <AuthContext.Provider value={{ auth, setAuth, login, logout, setUserType, setShopId }}>
       {children}
     </AuthContext.Provider>
   )

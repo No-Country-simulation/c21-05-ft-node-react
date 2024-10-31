@@ -5,7 +5,7 @@ const errorHandler = require('./../helpers/dbErrorHandler')
 const create = async (req, res, next) => {
 
   let product = new Product(req.body)
-  product.shop_id = req.shop._id
+  // product.shop_id = req.shop._id
 
   try {
     let savedProduct = await product.save()
@@ -80,8 +80,10 @@ const remove = async (req, res) => {
 }
 
 const listByShop = async (req, res) => {
+  console.log("QUE PASA CON MIS PRODUCTOSS: ",req.shop._id)
   try {
-    let products = await Product.find({ shop: req.shop._id }).exec()
+    let products = await Product.find({ shop_id: req.shop._id })
+    console.log("PRODUCTOSS: ",products)
     res.json(products)
   } catch (err) {
     return res.status(400).json({

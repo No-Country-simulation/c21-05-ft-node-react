@@ -6,26 +6,26 @@ const errorHandler = require('./../helpers/dbErrorHandler')
 const create = async (req, res) => {
   try {
     // Verificar si ya existe un usuario con el mismo correo
-    const existingUser = await User.findOne({ email: req.body.email });
+    const existingUser = await User.findOne({ email: req.body.email })
     if (existingUser) {
       return res.status(400).json({
         error: 'Email already exists'
-      });
+      })
     }
 
     // Crear nuevo usuario
-    const user = new User(req.body);
-    await user.save();
+    const user = new User(req.body)
+    await user.save()
     return res.status(200).json({
       message: "Successfully signed up!"
-    });
+    })
 
   } catch (err) {
     return res.status(400).json({
       error: 'Failed to create user: ' + errorHandler.getErrorMessage(err)
-    });
+    })
   }
-};
+}
 
 
 /**
@@ -90,7 +90,7 @@ const remove = async (req, res) => {
     let deletedUser = await User.findByIdAndDelete(user._id)
     deletedUser.hashed_password = undefined
     deletedUser.salt = undefined
-    
+
     res.json(deletedUser)
 
   } catch (err) {
@@ -113,14 +113,14 @@ const isSeller = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-  const isAdmin = req.profile && req.profile.user_type === 'admin';
+  const isAdmin = req.profile && req.profile.user_type === 'admin'
   if (!isAdmin) {
     return res.status(403).json({
       error: "User is not an admin"
-    });
+    })
   }
-  next();
-};
+  next()
+}
 
 
 const createCharge = (req, res, next) => {
@@ -133,6 +133,62 @@ const createCharge = (req, res, next) => {
   next()
 }
 
+const updateFavorites = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId)
+    if (!user) return res.status(404).json({ error: 'User not found' })
+
+    user.favorites.push(req.body.product_id)
+    await user.save()
+
+    res.json(user.favorites)
+  } catch (err) {
+    return res.status(400).json({ error: 'Could not update favorites' })
+  }
+}
+
+const removeFavorite = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId)
+    if (!user) return res.status(404).json({ error: 'User not found' })
+
+    user.favorites.pull(req.params.productId)
+    await user.save()
+
+    res.json(user.favorites)
+  } catch (err) {
+    return res.status(400).json({ error: 'Could not remove favorite' })
+  }
+}
+
+const updateCart = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId)
+    if (!user) return res.status(404).json({ error: 'User not found' })
+
+    user.cart.push({ product_id: req.body.product_id, quantity: req.body.quantity })
+    await user.save()
+
+    res.json(user.cart)
+  } catch (err) {
+    return res.status(400).json({ error: 'Could not update cart' })
+  }
+}
+
+const removeFromCart = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId)
+    if (!user) return res.status(404).json({ error: 'User not found' })
+
+    user.cart.pull({ product_id: req.params.productId })
+    await user.save()
+
+    res.json(user.cart)
+  } catch (err) {
+    return res.status(400).json({ error: 'Could not remove from cart' })
+  }
+}
+
 module.exports = {
   create,
   read,
@@ -142,5 +198,9 @@ module.exports = {
   list,
   isSeller,
   isAdmin,
-  createCharge
+  createCharge,
+  updateFavorites,
+  removeFavorite,
+  updateCart,
+  removeFromCart
 }

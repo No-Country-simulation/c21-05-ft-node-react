@@ -10,9 +10,14 @@
   --clr-brand: hsl(48, 100%, 42%);
   --clr-brand-light: hsl(48, 100%, 60%);
   --clr-brand-dark: hsl(48, 100%, 30%);
+  --clr-dark: #222;
+  --clr-light: #eee;
+  --clr-fg: var(--clr-dark);
+  --clr-bg: var(--clr-light);
+
   color-scheme: light dark;
-  color: #222;
-  background-color: #eee;
+  color: var(--clr-fg);
+  background-color: var(--clr-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,8 +32,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    color: #eee;
-    background-color: #222;
+    --clr-fg: var(--clr-light);
+    --clr-bg: var(--clr-dark);
   }
 }
 
@@ -49,4 +54,3 @@
   font-weight: 700;
   font-style: normal;
 }
-

@@ -44,7 +44,8 @@
 
 
 /* ::: Item Novedades ::: */
-.news-item {
+.news-item,
+.hero-image {
   width: 100%;
   aspect-ratio: 1921/500;
   min-height: 250px;
@@ -57,7 +58,8 @@
 
 /* ::: Encabezado Especial ::: */
 
-.h-special {
+.h-special,
+.h-special-left {
   font-size: 2rem;
   line-height: 2rem;
   margin-top: 3rem;
@@ -79,6 +81,10 @@
   display: block;
   border-bottom: 2px solid var(--clr-brand);
   background-color: transparent;
+}
+
+.h-special-left {
+  grid-template-columns: 1fr auto 100fr;
 }
 
 /* ::: Etiqueta ::: */
