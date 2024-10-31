@@ -11,6 +11,8 @@ import SignUp from "./pages/signup"
 import Login from "./pages/login"
 import CreateShop from "./pages/create-shop"
 import Category from "./pages/category"
+import ProductDetail from "./pages/product-detail"
+import SearchResults from "./pages/search-results"
 
 import AuthContext, { AuthProvider } from "./context/auth-context"
 import { useContext } from "react"
@@ -31,6 +33,8 @@ function App() {
             <Route exact path="/signup" element={<SignUp />}></Route>
             <Route exact path="/login" element={<Login />}></Route>
             <Route exact path="/products" element={<Category />}></Route>
+            <Route exact path="/products/:id" element={<ProductDetail />}></Route>
+            <Route exact path="/search" element={<SearchResults />}></Route>
             <Route path="/create-shop" element={<PrivateRoute><CreateShop /></PrivateRoute>} />
           </Routes>
         </Router>
