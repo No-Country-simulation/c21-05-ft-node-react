@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema({
   views: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   cart: [
     {
-      product_id: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
+      _id: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
       quantity: { type: Number, required: true }
     }
   ],

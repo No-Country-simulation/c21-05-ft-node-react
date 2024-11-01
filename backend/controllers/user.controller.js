@@ -138,7 +138,7 @@ const updateFavorites = async (req, res) => {
     const user = await User.findById(req.params.userId)
     if (!user) return res.status(404).json({ error: 'User not found' })
 
-    user.favorites.push(req.body.product_id)
+    user.favorites = req.body
     await user.save()
 
     res.json(user.favorites)
@@ -166,7 +166,7 @@ const updateCart = async (req, res) => {
     const user = await User.findById(req.params.userId)
     if (!user) return res.status(404).json({ error: 'User not found' })
 
-    user.cart.push({ product_id: req.body.product_id, quantity: req.body.quantity })
+    user.cart = req.body
     await user.save()
 
     res.json(user.cart)

@@ -294,8 +294,7 @@ const CreateProduct = () => {
               <label className="block text-sm font-medium">Categoría *</label>
               <select
                 {...register('category_id', { required: 'La categoría es requerida' })}
-                className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:border-yellow-300 transition ease-in-out"
-                style={{ backgroundColor: "var(--clr-bg)" }}
+                className="mt-1 p-3 w-full border rounded-md clr-bg focus:outline-none focus:border-yellow-300 transition ease-in-out"
               >
                 <option value="" className="m-10">Selecciona una categoría</option>
                 {categories.map(category => (
