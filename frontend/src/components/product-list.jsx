@@ -1,7 +1,7 @@
 import { HeartIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import NumberFormatter from "./number-formatter";
 const ProductList = ({ products, isLoading }) => {
 
   const [prodArray, setProdArray] = useState([]);
@@ -19,7 +19,7 @@ const ProductList = ({ products, isLoading }) => {
       <Link to={`/products/${product._id}`} key={product._id}>
         <div className={`text-left hover:scale-105 ease-in-out duration-200 appear`} >
           <div className="relative aspect-square rounded rounded-3xl bg-cover bg-center bg-neutral-500 grid place-items-center " style={{ backgroundImage: `url(${product.image})` }}>
-            <span className="tag-left top-5 text-xl" >${product.price}</span>
+            <span className="tag-left top-5 text-xl" >$ <NumberFormatter number={product.price} /> </span>
             <HeartIcon className="h-10 absolute top-5 right-5 hover:scale-125 ease-in-out duration-200 " />
             {!product.image &&
               <div className="flex flex-col items-center">
@@ -27,7 +27,7 @@ const ProductList = ({ products, isLoading }) => {
                 <span >Sin imagen</span>
               </div>}
           </div>
-          <p className="py-2 font-semibold text-2xl text-left">{product.name}</p>
+          <p className="py-2 font-semibold text-lg text-left">{product.name}</p>
         </div>
       </Link>
     )
@@ -36,10 +36,10 @@ const ProductList = ({ products, isLoading }) => {
   const skeletonCards = Array(6).fill().map((_, index) => (
     <div className={`text-left hover:scale-105 ease-in-out duration-200 appear`} key={index} >
       <div className="relative aspect-square rounded rounded-3xl bg-cover bg-center bg-neutral-500 grid place-items-center " >
-        <span className="tag-left top-5 text-xl" >$░░░░░░░░</span>
+        <span className="tag-left top-5 text-xl" >$</span>
         <HeartIcon className="h-10 absolute top-5 right-5 hover:scale-125 ease-in-out duration-200 " />
       </div>
-      <p className="py-2 font-semibold text-2xl text-left">░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ </p>
+      <p className="py-2 font-semibold text-lg text-left">cargando... </p>
     </div>
   ))
 

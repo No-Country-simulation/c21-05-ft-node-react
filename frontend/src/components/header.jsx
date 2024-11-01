@@ -86,7 +86,7 @@ const Header = () => {
                   </Link>
                   {
                     auth.user.shop_id
-                      ? <Link to="/shop" className="flex gap-2 px-4 py-2 hover:bg-gray-600">
+                      ? <Link to={`/shop/${auth.user.shop_id}`} className="flex gap-2 px-4 py-2 hover:bg-gray-600">
                         <BuildingStorefrontIcon className="h-5 aspect-square" />
                         <span> Gestionar tienda </span>
                       </Link>

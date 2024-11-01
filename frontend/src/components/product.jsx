@@ -45,7 +45,7 @@ const Product = (id) => {
                 </span>
 
    
-                <p className="pt-2 font-semibold sm:text-xl">${product.price}</p> 
+                <p className="pt-2 font-semibold sm:text-xl">$<NumberFormatter number={product.price} /></p> 
                 <p className="pt-2">Stock disponible: {product.stock}</p>
                 <nav>
                     <span>

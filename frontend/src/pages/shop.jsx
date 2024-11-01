@@ -52,7 +52,7 @@ const Shop = () => {
           <details className="cursor-pointer">
             <summary className="mt-2">
               <span> {shop.description} </span>
-              <span className="pl-10 text-sm text-yellow-500">mas información</span>
+              <span className="pl-10 text-sm text-yellow-500">más&nbsp;información</span>
             </summary>
             <p className="mt-2"><strong>Teléfono:</strong> {shop.phone}</p>
             <p className="mt-2"><strong>Dirección:</strong> {shop.address}</p>

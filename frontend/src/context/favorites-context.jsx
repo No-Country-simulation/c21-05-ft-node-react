@@ -11,7 +11,7 @@ export const FavoritesProvider = ({ children }) => {
   const addToFavorites = async (product) => {
     setFavorites([...favorites, product]);
     try {
-      await api.put(`/api/users/${auth.user._id}/favorites`, { product_id: product._id });
+      await api.put(`/api/users/${auth.user._id}/favorites`, { _id: product._id });
     } catch (error) {
       console.error('Error adding to favorites:', error);
       // Optionally, revert state change if API call fails
