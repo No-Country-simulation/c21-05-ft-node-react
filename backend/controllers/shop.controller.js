@@ -28,11 +28,9 @@ const create = async (req, res) => {
     let user = await User.findById(req.auth._id);
     if (user.user_type !== 'seller') {
       user.user_type = 'seller'
+      user.shop_id = newShop._id
       await user.save();
     }
-
-    // Agregar el shop_id al usuario
-    user.shop_id = newShop._id
 
     res.status(200).json(newShop)
 

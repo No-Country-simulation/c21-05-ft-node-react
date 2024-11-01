@@ -1,41 +1,48 @@
-import { useSearchParams } from "react-router-dom";
-import Layout from "../components/layout";
-import ProductList from "../components/product-list";
-import { useEffect, useState } from "react";
-import api from "../api/axiosConfig";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import api from '../api/axiosConfig';
+import Layout from "../components/layout"
+import SearchBar from "../components/search-bar";
+import ProductList from '../components/product-list';
 
-function SearchResults() {
-    const [searchParams, setSearchParams] = useSearchParams();
+const SearchResults = () => {
+  const location = useLocation();
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const input = searchParams.get('input');
+  const [q, setQ] = useState('');
 
-    const [products, setProducts] =  useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get('q');
+    setQ(query)
     const getProducts = async () => {
-        try {         
-            const response = await api.get(`/products?search=${input}`)
-            setProducts(response.data)
-        } catch (error) {
-            console.error('Error fetching products:', error)
-        } finally {
-            setIsLoading(false);
-        }
-    }
+      try {
+        const response = await api.get(`/products?search=${query}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error getting products:', error);
+      } finally {
+        setIsLoading(false)
+      }
+    };
 
-    useEffect(() => {
-        getProducts()
-    }, [])
+    getProducts();
+  }, [location.search]);
 
-  
-    return (
-      <Layout>
-        <main className="p-10 min-h-screen">
-        <h1 className="font-semibold text-xl">Resultados de tu búsqueda:</h1>
-          <ProductList products={products} isLoading={isLoading}/>
-        </main>
-      </Layout>
-    );
-}
 
-export default SearchResults
+
+  return (
+    <Layout>
+      <SearchBar initialQuery={q} />
+      <main className="p-10 min-h-screen max-w-screen-2xl mx-auto">
+        <div>
+          <h1 className="h-special h-special-left mt-0">{q ? q : 'Todos los productos'}</h1>
+          <ProductList products={products} isLoading={isLoading} />
+        </div>
+      </main>
+    </Layout>
+  );
+};
+
+export default SearchResults;

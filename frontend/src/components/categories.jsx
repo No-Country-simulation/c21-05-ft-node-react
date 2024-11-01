@@ -27,17 +27,17 @@ const Categories = () => {
       <Link to={`/products?categoryId=${category._id}&categoryName=${category.name}`} key={category._id}>
         <div
           className={
-            `relative p-5 m-5 h-48 bg-cover bg-center text-left  rounded-xl min-w-26 uppercase shadow-2xl 
+            `relative p-5 h-48 bg-cover bg-center text-left rounded-xl min-w-26 uppercase shadow-2xl 
             sm:h-56 
             hover:text-xl hover:scale-105 ease-in-out duration-200 appear
             `
           }
           style={{ backgroundImage: `url(${category.image})` }}
         >
-          <span 
-          // className="absolute bg-black p-2 left-0"
-          className="tag-left"
-          
+          <span
+            // className="absolute bg-black p-2 left-0"
+            className="tag-left"
+
           >{category.name} </span>
         </div>
       </Link>
@@ -56,7 +56,7 @@ const Categories = () => {
   return (
     <section className="pb-10 min-h-screen">
       <h1 className="h-special">Categorías</h1>
-      <div className="grid grid-flow-* md:grid-cols-2">
+      <div className="grid grid-flow-* md:grid-cols-2 gap-10">
         {isLoading ? skeletonCards : cards}
       </div>
     </section>
