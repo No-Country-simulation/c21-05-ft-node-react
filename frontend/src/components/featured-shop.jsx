@@ -21,7 +21,7 @@ const FeaturedShop = ({ shopId }) => {
   const fetchProducts = async () => {
     try {
       const response = await api.get(`/products/by/${shopId}`);
-      setProducts(response.data.slice(0, 3));  // Get only the first 3 products
+      setProducts(response.data?.slice(0, 3));  // Get only the first 3 products
     } catch (error) {
       console.error('Error fetching products:', error);
     }
